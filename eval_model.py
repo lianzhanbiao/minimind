@@ -131,10 +131,10 @@ def main():
     prompts = get_prompt_datas(args)
     test_mode = int(input('[0] 自动测试\n[1] 手动输入\n'))
     messages = []
-    for idx, prompt in enumerate(prompts if test_mode == 0 else iter(lambda: input('👶: '), '')):
+    for idx, prompt in enumerate(prompts if test_mode == 0 else iter(lambda: input('I: '), '')):
         setup_seed(random.randint(0, 2048))
         # setup_seed(2025)  # 如需固定每次输出则换成【固定】的随机种子
-        if test_mode == 0: print(f'👶: {prompt}')
+        if test_mode == 0: print(f'I: {prompt}')
 
         messages = messages[-args.history_cnt:] if args.history_cnt else []
         messages.append({"role": "user", "content": prompt})
@@ -158,7 +158,7 @@ def main():
                 pad_token_id=tokenizer.pad_token_id
             )
 
-            print('🤖️: ', end='')
+            print('robot: ', end='')
             try:
                 if not args.stream:
                     print(tokenizer.decode(outputs.squeeze()[x.shape[1]:].tolist(), skip_special_tokens=True), end='')
